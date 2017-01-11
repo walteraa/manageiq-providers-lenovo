@@ -20,12 +20,10 @@ module ManageIQ::Providers::Lenovo
       log_header = "MIQ(#{self.class.name}.#{__method__}) Collecting data for EMS : [#{@ems.name}] id: [#{@ems.id} ref: #{@ems.uid_ems}]"
 
       $log.info("#{log_header}...")
-      $lenovo_log.info("#{log_header}...")
 
       get_physical_servers
 
       $log.info("#{log_header}...Complete")
-      $lenovo_log.info("#{log_header}...Complete")
 
       @data
     end
@@ -62,7 +60,6 @@ module ManageIQ::Providers::Lenovo
       end
       process_collection(nodes, :physical_servers) { |node| parse_nodes(node) }
 
-      $lenovo_log.info ("supercali")
     end
 
 
