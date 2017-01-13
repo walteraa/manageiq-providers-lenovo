@@ -1,6 +1,7 @@
 class ManageIQ::Providers::Lenovo::PhysicalInfraManager < ManageIQ::Providers::InfraManager
-
-  has_many :physical_servers, foreign_key: "ems_id", class_name: "ManageIQ::Providers::Lenovo::PhysicalInfraManager::PhysicalServer"
+  has_many :physical_servers, 
+           foreign_key => "ems_id", 
+           class_name => "ManageIQ::Providers::Lenovo::PhysicalInfraManager::PhysicalServer"
 
   include ManageIQ::Providers::Lenovo::ManagerMixin
   include_concern 'Operations'
@@ -19,21 +20,15 @@ class ManageIQ::Providers::Lenovo::PhysicalInfraManager < ManageIQ::Providers::I
     @description ||= "Lenovo XClarity"
   end
 
-  def turn_on_loc_led ( args, options = {})
+  def turn_on_loc_led(args, options = {})
     $lenovo_log.info("Turn on LED splat (connect) #{args} #{options}")
 
     ems_auth = authentications.first
     $lenovo_log.info(" USer: #{ems_auth.userid}, Host: #{endpoints.first.hostname}")
-    verify_ssl = options[:verify_ssl] == 1 ? 'PEER' : 'NONE'
-    @connection = connect( {:user=>ems_auth.userid, 
-                            :pass => ems_auth.password, 
-                            :host =>endpoints.first.hostname
-                           })
-    @connection.turn_on_loc_led( args.uuid)
-    $lenovo_log.info("Turn on LED splat (no connect)")                              
+    @connection = connect(:user => ems_auth.userid, 
+                          :pass => ems_auth.password, 
+                          :host => endpoints.first.hostname)
+    @connection.turn_on_loc_led(args.uuid)
+    $lenovo_log.info("Turn on LED splat (no connect)")
   end
-
- 
-
-
 end
