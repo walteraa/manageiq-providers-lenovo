@@ -8,6 +8,7 @@ group :test do
   gem "codeclimate-test-reporter", "~> 1.0.0", :require => false
 end
 
+
 unless dependencies.detect { |d| d.name == "xclarity_client" }
   gem "xclarity_client", git: "git://github.com/lenovo/xclarity_client", :branch => "development"
 end
