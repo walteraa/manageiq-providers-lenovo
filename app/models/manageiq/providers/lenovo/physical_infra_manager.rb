@@ -2,6 +2,7 @@ class ManageIQ::Providers::Lenovo::PhysicalInfraManager < ManageIQ::Providers::P
   has_many :physical_servers, foreign_key: "ems_id", class_name: "ManageIQ::Providers::Lenovo::PhysicalInfraManager::PhysicalServer"
 
   include ManageIQ::Providers::Lenovo::ManagerMixin
+  include_concern 'Operations'
 
   require_nested :Refresher
   require_nested :RefreshParser
@@ -16,4 +17,5 @@ class ManageIQ::Providers::Lenovo::PhysicalInfraManager < ManageIQ::Providers::P
   def self.description
     @description ||= "Lenovo XClarity"
   end
+
 end

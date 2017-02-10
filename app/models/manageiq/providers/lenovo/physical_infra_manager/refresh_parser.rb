@@ -17,7 +17,7 @@ module ManageIQ::Providers::Lenovo
     end
 
     def ems_inv_to_hashes
-      log_header = "MIQ(#{self.class.name}.#{__method__}) Collecting data for EMS : [#{@ems.name}] id: [#{@ems.id}]"
+      log_header = "MIQ(#{self.class.name}.#{__method__}) Collecting data for EMS : [#{@ems.name}] id: [#{@ems.id} ref: #{@ems.uid_ems}]"
 
       $log.info("#{log_header}...")
 
@@ -59,6 +59,7 @@ module ManageIQ::Providers::Lenovo
         XClarityClient::Node.new node
       end
       process_collection(nodes, :physical_servers) { |node| parse_nodes(node) }
+
     end
 
 
@@ -79,8 +80,8 @@ module ManageIQ::Providers::Lenovo
       new_result = {
         :type    => ManageIQ::Providers::Lenovo::PhysicalInfraManager::PhysicalServer.name,
         :name    => node.name,
-        :ems_ref => node.uuid,
-        :uid_ems => node.uuid,
+        :ems_ref => @ems.uid_ems,
+        :uid_ems => @ems.uid_ems,
         :hostname => node.hostname,
         :productName => node.productName,
         :manufacturer => node.manufacturer,
@@ -93,7 +94,6 @@ module ManageIQ::Providers::Lenovo
         :ipv4Addresses => node.ipv4Addresses.split.flatten,
         :ipv6Addresses => node.ipv6Addresses.split.flatten
       }
-
       return node.uuid, new_result
     end
 
