@@ -17,5 +17,4 @@ class ManageIQ::Providers::Lenovo::PhysicalInfraManager < ManageIQ::Providers::P
   def self.description
     @description ||= "Lenovo XClarity"
   end
-
 end
