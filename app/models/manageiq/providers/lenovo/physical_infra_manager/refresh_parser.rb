@@ -82,6 +82,7 @@ module ManageIQ::Providers::Lenovo
         :name    => node.name,
         :ems_ref => @ems.uid_ems,
         :uid_ems => @ems.uid_ems,
+        :ems_id =>  @ems.id,
         :hostname => node.hostname,
         :productName => node.productName,
         :manufacturer => node.manufacturer,
